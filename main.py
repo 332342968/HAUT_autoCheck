@@ -94,95 +94,96 @@ def checkIn(userInfo,token):
     a=random.uniform(36.2,36.8)
     temperature = round(a, 1)
     jsons={
-            "businessType": "epmpics",
-            "method": "submitUpInfoSchool",
-            "jsonData": {
-            "deptStr": {
-                "deptid": userInfo['classId'],
-                "text": userInfo['classDescription']
-            },
-            #如果你来自其他学校，请自行打卡抓包修改地址字段
-            "areaStr": {"streetNumber":"","street":"长椿路辅路","district":"中原区","city":"郑州市","province":"河南省","town":"","pois":"河南工业大学(莲花街校区)","lng":113.55064699999795 + random.random()/1000,"lat":34.83870696238093 + random.random()/1000,"address":"中原区长椿路辅路河南工业大学(莲花街校区)","text":"河南省-郑州市","code":""},
-            "reportdate": round(time.time()*1000),
-            "customerid": userInfo['customerId'],
-            "deptid": userInfo['classId'],
-            "source": "app",
-            "templateid": "clockSign2",
-            "stuNo": userInfo['stuNo'],
-            "username": userInfo['username'],
-            "userid": round(time.time()),
-            "updatainfo": [  
-                {
-                    "propertyname": "temperature",
-                    "value": temperature
-                },
-                {
-                    "propertyname": "symptom",
-                    "value": "无症状"
-                }
-            ],
-            "customerAppTypeRuleId": 147,
-            "clockState": 0,
-            "token": token
-            },
-            "token": token
-    }
-    #提交打卡
-    response = requests.post(sign_url, json=jsons)
-    return response
-
-#校外打卡
-def check(ownphone,userInfo,token):
-    sign_url = "https://reportedh5.17wanxiao.com/sass/api/epmpics"
-    #获取datajson
-    post_json = {
-            "businessType": "epmpics",
-            "jsonData": {
-            "templateid": "pneumonia",
-            "token": token
-        },
-            "method": "getUpDataInfoDetail"
-    }      
-    response = requests.post(sign_url, json=post_json).json()
-    data = json.loads(response['data'])
-    info_dict = {
-            "add":data['add'],
-            "areaStr": data['areaStr'],
-            "updatainfo": [{"propertyname": i["propertyname"], "value": i["value"]} for i in
-                            data['cusTemplateRelations']]
-        }
-    #随机温度
-    a=random.uniform(36.2,36.8)
-    temperature = round(a, 1)
-    for i in info_dict['updatainfo']: 
-        if i['propertyname'] == 'temperature':
-            i['value'] = temperature
-    #校外打卡提交json
-    check_json = {
-    "businessType": "epmpics",
-    "method": "submitUpInfo",
-    "jsonData": {
-        "add": info_dict['add'],
-        "areaStr": info_dict['areaStr'],
-        "cardNo": "null",
-        "customerid": userInfo['customerId'],
-        "deptStr": {
-            "deptid": userInfo['classId'],
-            "text": userInfo['classDescription'],
-        },
-        "phonenum": ownphone,
-        "stuNo": userInfo['stuNo'],
-        "templateid": "pneumonia",
-        "upTime": "null",
-        "userid": userInfo['userId'],
-        "username": userInfo['username'],
-        "deptid": userInfo['classId'],
-        "updatainfo": info_dict['updatainfo'],
-        "source": "app",
-        "reportdate": round(time.time()),
-        "gpsType": 1,
-        "token": token
-    }
+  "businessType": "epmpics",
+  "method": "submitUpInfo",
+  "jsonData": {
+    "deptStr": {
+      "deptid": 46394,
+      "text": "学生-航海学院-航海171D"
+    },
+    "areaStr": "{\"streetNumber\":\"\",\"street\":\"护驾山路\",\"district\":\"邹城市\",\"city\":\"济宁市\",\"province\":\"山东省\",\"town\":\"\",\"pois\":\"邹城市第一中学(北校区)\",\"lng\":117.0043030000003,\"lat\":35.41580091076081,\"address\":\"邹城市护驾山路邹城市第一中学(北校区)\",\"text\":\"山东省-济宁市\",\"code\":\"\"}",
+    "reportdate": 1611740388473,
+    "customerid": "790",
+    "deptid": 46394,
+    "source": "app",
+    "templateid": "pneumonia",
+    "stuNo": "201721011408",
+    "username": "朱培宁",
+    "phonenum": "18253738399",
+    "userid": "13422677",
+    "updatainfo": [
+      {
+        "propertyname": "temperature",
+        "value": "36.5"
+      },
+      {
+        "propertyname": "symptom",
+        "value": "无症状"
+      },
+      {
+        "propertyname": "SFJCQZHYS",
+        "value": "否，从未隔离观察"
+      },
+      {
+        "propertyname": "jjxhuodong",
+        "value": "没有"
+      },
+      {
+        "propertyname": "jtcy",
+        "value": "没有"
+      },
+      {
+        "propertyname": "isAlreadyInSchool",
+        "value": "没有"
+      },
+      {
+        "propertyname": "isTouch",
+        "value": "否"
+      },
+      {
+        "propertyname": "outdoor",
+        "value": "否"
+      },
+      {
+        "propertyname": "xinqing",
+        "value": "健康"
+      },
+      {
+        "propertyname": "ownbodyzk",
+        "value": "否"
+      },
+      {
+        "propertyname": "yiqu",
+        "value": "无症状"
+      },
+      {
+        "propertyname": "dormitory",
+        "value": "技校家属院"
+      },
+      {
+        "propertyname": "ownPhone",
+        "value": "18253738399"
+      },
+      {
+        "propertyname": "emergencyContact",
+        "value": "朱本湖"
+      },
+      {
+        "propertyname": "mergencyPeoplePhone",
+        "value": "13465476420"
+      },
+      {
+        "propertyname": "assistRemark",
+        "value": ""
+      },
+      {
+        "propertyname": "symptoms",
+        "value": "本人承诺以上信息均经本人审核确认，准确无误，如有瞒报、漏报和弄虚作假行为，自愿接受国家疫情防控相关管理规定处理。"
+      }
+    ],
+    "gpsType": 0,
+    "token": "1a55cef9-b6db-4971-aa1d-d3457e0ed237"
+  }
 }
     res = requests.post(sign_url, json=check_json) 
     return res
